@@ -1,0 +1,368 @@
+/* body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(to bottom right, #ff7e5f, #feb47b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: white;
+}
+
+
+.App {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  width: 320px;
+  color: white;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+#startButton,
+#endButton {
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50; 
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+}
+
+#startButton:hover,
+#endButton:hover {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+.game-container {
+  background-color: rgb(1, 254, 64);
+  display: grid;
+  grid-template-columns: repeat(3, 160px);
+  gap: 10px;
+  border: 2px solid rgb(216, 216, 216);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.hole {
+  height: 150px;
+  background: rgb(19, 55, 139);
+  border: 5px solid rgb(30, 30, 30);
+  cursor: pointer;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.hole:hover {
+  background: rgb(10, 30, 100);
+}
+
+.mole {
+  background-size: cover;
+  background-image: url("mole.jpg");
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+  .game-container {
+      width: 80%;
+      gap: 10px;
+      padding: 5%;
+      grid-template-columns: repeat(3, 38%);
+  }
+
+  .hole {
+      height: 50px;
+      width: 50px;
+      border-radius: 100px;
+  }
+
+  .mole {
+      background-size: 50px;
+      background-image: url("mole.jpg");
+  }
+} */
+
+
+
+
+/* Global Styles */
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(to bottom right, #ff7e5f, #feb47b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: white;
+}
+
+.App {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  width: 320px;
+  color: white;
+}
+
+/* Game Info Styles */
+.game-info {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2em;
+}
+
+#score, #timer {
+  margin: 10px 0;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Button Styles */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+button {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+  transform: scale(1.05);
+}
+
+/* Game Container Styles */
+.game-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.hole {
+  width: 90px;
+  height: 90px;
+  background: #4a4a4a;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hole:hover {
+  background: #626262;
+  transform: scale(1.05);
+}
+
+/* Mole Styles */
+.mole {
+  background: url('mole.jpg') center/cover;
+  animation: mole-pop 0.5s ease-in-out;
+  transform: scale(0.8);
+}
+
+.mole.clicked {
+  animation: mole-disappear 0.5s ease-in-out forwards;
+}
+
+@keyframes mole-pop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes mole-disappear {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* Additional Styles */
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+footer a {
+  color: #ffeb3b;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+/* Mobile Styles */
+@media (max-width: 600px) {
+  .App {
+      width: 90%;
+      padding: 20px;
+  }
+
+  .hole {
+      width: 70px;
+      height: 70px;
+  }
+
+  button {
+      padding: 10px 20px;
+  }
+}
+
+
+
+/* 
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(to bottom right, #ff7e5f, #feb47b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: white;
+}
+
+.App {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  width: 320px;
+  color: white;
+}
+
+.game-info {
+  margin-bottom: 20px;
+}
+
+#score, #timer {
+  font-size: 1.8em;
+  margin: 10px 0;
+}
+
+button {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 24px;
+  cursor: pointer;
+  margin: 10px 5px;
+  font-size: 1em;
+  transition: background 0.3s, transform 0.3s;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+  transform: scale(1.05);
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.hole {
+  width: 90px;
+  height: 90px;
+  background: #4a4a4a;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hole:hover {
+  background: #626262;
+  transform: scale(1.05);
+}
+
+.mole {
+  background: url('https://i.imgur.com/H4Cqa22.png') center/cover;
+  animation: mole-pop 0.5s ease-in-out;
+  transform: scale(0.8);
+}
+
+.mole.clicked {
+  animation: mole-disappear 0.5s ease-in-out forwards;
+}
+
+@keyframes mole-pop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes mole-disappear {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+
+
+
+ */
